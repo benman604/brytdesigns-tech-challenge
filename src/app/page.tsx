@@ -4,11 +4,36 @@ import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
+import Account from "./form-pages/account";
+import Address from "./form-pages/address";
+import Preferences from "./form-pages/preferences";
+
 export default function Home() {
+
   const [name, setName] = useState("World");
+  const [page, setPage] = useState("account");
+
   return (
-    <main className="w-screen h-screen flex flex-col gap-8 justify-center items-center max-w-2xl mx-auto">
-      <h1 className="text-6xl">Hello {name} and good luck 😄!</h1>
+    <main>
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-6">{page}</h1>
+          <div className="w-80 p-6 bg-white shadow-md rounded-lg">
+            <Account />
+
+            {/* horizontal view with left and right side */}
+            <div className="flex justify-between">
+              <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+                  Prevoius
+              </button>
+              <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+                  Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <h1 className="text-6xl">Hello {name} and good luck 😄!</h1>
       <h3 className="text-3xl font-semibold">
         For this one, please stick to React, Zod, CSS and tailwindcss! 💃
       </h3>
@@ -34,7 +59,7 @@ export default function Home() {
           value={name}
           onChange={({ target }) => setName(target.value)}
         />
-      </form>
+      </form> */}
     </main>
   );
 }
