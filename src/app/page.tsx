@@ -18,7 +18,7 @@ export default function Home() {
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-6">{page}</h1>
-          <div className="w-80 p-6 bg-white shadow-md rounded-lg">
+          <div className="w-100 p-6 bg-white shadow-md rounded-lg">
             <Account />
 
             {/* horizontal view with left and right side */}
