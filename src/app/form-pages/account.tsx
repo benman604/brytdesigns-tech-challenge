@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import InputField from "../components/textinput";
 
-export default function Account() {
+export default function Account({ onNext }: { onNext: (formData: Record<string, string>) => void }) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
         firstName: '',
         lastName: '',
@@ -17,7 +17,7 @@ export default function Account() {
     });
 
     const handleSubmit = () => {
-        console.log(formData);
+        onNext(formData)
     }
 
     return (

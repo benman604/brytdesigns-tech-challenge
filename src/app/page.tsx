@@ -2,14 +2,32 @@
 
 import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 import Account from "./form-pages/account";
 import Address from "./form-pages/address";
 import Preferences from "./form-pages/preferences";
+import { ReactDOMServerReadableStream } from "react-dom/server";
 
 export default function Home() {
   const [page, setPage] = useState("Account");
+
+  const nextPage = (data: Record<string, string>) => {
+    console.log(data);
+    if (page === "Account") {
+      setPage("Address");
+    } else if (page === "Address") {
+      setPage("Preferences");
+    } else {
+      setPage("Account");
+    }
+  };
+
+  const pages: Record<string, ReactElement> = {
+    Account: <Account onNext={nextPage} />,
+    Address: <Address onNext={nextPage} />,
+    Preferences: <Preferences onNext={nextPage} />,
+  }
 
   return (
     <main>
@@ -17,7 +35,7 @@ export default function Home() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-6">{page}</h1>
           <div className="w-100 p-6 bg-white shadow-md rounded-lg">
-            <Account />
+            {pages[page]}
           </div>
         </div>
       </div>
