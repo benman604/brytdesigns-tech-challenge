@@ -1,6 +1,6 @@
 "use client";
 
-import { faFontAwesome, faRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faRightLong, faUser, faUserAlt, faUserAstronaut, faEnvelope, faKey, faFingerprint, faE } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 
@@ -60,7 +60,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
                 <InputField 
                     label="First Name" 
                     icon={
-                        <FontAwesomeIcon icon={faFontAwesome} />
+                        <FontAwesomeIcon icon={faUser} />
                     } 
                     placeholder="John" 
                     value={formData.firstName}
@@ -71,7 +71,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
                     <InputField 
                         label="Last Name" 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faUserAlt} />
                         } 
                         placeholder="John" 
                         value={formData.lastName}
@@ -83,7 +83,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
             <InputField 
                 label="Username *" 
                 icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
+                    <FontAwesomeIcon icon={faUserAstronaut} />
                 } 
                 placeholder="Placeholder" 
                 value={formData.username}
@@ -93,7 +93,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
             <InputField 
                 label="Email address *" 
                 icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
+                    <FontAwesomeIcon icon={faEnvelope} />
                 } 
                 placeholder="Placeholder" 
                 value={formData.email}
@@ -105,7 +105,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
                 <InputField 
                     label="Password *" 
                     icon={
-                        <FontAwesomeIcon icon={faFontAwesome} />
+                        <FontAwesomeIcon icon={faKey} />
                     } 
                     type="password"
                     placeholder="Placeholder" 
@@ -117,7 +117,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
                     <InputField 
                         label="Confirm password *" 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faFingerprint} />
                         } 
                         type="password"
                         placeholder="Password" 

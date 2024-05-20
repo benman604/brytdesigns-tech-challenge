@@ -1,10 +1,11 @@
 "use client";
 
-import { faFontAwesome, faLongArrowAltLeft, faRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faLongArrowAltLeft, faRightLong, faPassport, faBuilding, faCity, faBox, faBuildingColumns, faPhone, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
 import SelectInput from "../components/selectinput";
 import { useState, useEffect } from "react";
+import { faBuildingCircleArrowRight } from "@fortawesome/free-solid-svg-icons/faBuildingCircleArrowRight";
 
 interface AddressProps {
     onNext: (formData: Record<string, string>) => void;
@@ -58,7 +59,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                 <InputField 
                     label="Address *" 
                     icon={
-                        <FontAwesomeIcon icon={faFontAwesome} />
+                        <FontAwesomeIcon icon={faPassport} />
                     } 
                     placeholder="Placeholder" 
                     value={formData.address1}
@@ -69,7 +70,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                     <InputField 
                         label="Apartment, Suite, etc." 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faBuilding} />
                         } 
                         placeholder="Placeholder" 
                         value={formData.address2}
@@ -84,7 +85,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                     <SelectInput 
                         label="Country *" 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faGlobe} />
                         } 
                         options={['US', 'Canada', 'Mexico']} 
                         value={formData.country}
@@ -95,7 +96,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                     <InputField 
                         label="City *" 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faCity} />
                         } 
                         placeholder="Placeholder" 
                         value={formData.city}
@@ -106,7 +107,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                     <InputField 
                         label="Zipcode *" 
                         icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
+                            <FontAwesomeIcon icon={faBuildingColumns} />
                         } 
                         placeholder="Placeholder" 
                         value={formData.zipCode}
@@ -118,7 +119,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
             <InputField 
                 label="Company" 
                 icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
+                    <FontAwesomeIcon icon={faBuildingCircleArrowRight} />
                 } 
                 placeholder="Placeholder" 
                 value={formData.company}
@@ -128,7 +129,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
             <InputField 
                 label="Phone Number *" 
                 icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
+                    <FontAwesomeIcon icon={faPhone} />
                 } 
                 placeholder="Placeholder" 
                 value={formData.phoneNumber}
