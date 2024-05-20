@@ -8,7 +8,7 @@ import InputField from "../components/textinput";
 
 export default function Account({ onNext }: { onNext: (formData: Record<string, string>) => void }) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
-        firstName: '',
+        firstName: 'This is a saved name',
         lastName: '',
         username: '',
         email: '',
@@ -16,7 +16,16 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
         confirmPassword: ''
     });
 
+    const requiredFields = ['username', 'email', 'password', 'confirmPassword']
+    const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
+
     const handleSubmit = () => {
+        for (let field of requiredFields) {
+            if (!formData[field]) {
+                alert(`${field} is required`)
+                return
+            }
+        }
         onNext(formData)
     }
 
@@ -82,7 +91,7 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
                 </div>
                 <div className="w-1/2">
                     <InputField 
-                        label="Confirm password" 
+                        label="Confirm password *" 
                         icon={
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
@@ -96,9 +105,13 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
 
             <div className="flex justify-between mt-5">
                 <p></p>
-                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
-                  Next
-                  <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
+                <button 
+                    className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" 
+                    onClick={handleSubmit}
+                    disabled={!isAllFieldsFilled}
+                >
+                    Next
+                    <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
                 </button>
             </div>
         </>

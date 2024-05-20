@@ -7,7 +7,6 @@ import { ReactElement, useState } from "react";
 import Account from "./form-pages/account";
 import Address from "./form-pages/address";
 import Preferences from "./form-pages/preferences";
-import { ReactDOMServerReadableStream } from "react-dom/server";
 
 export default function Home() {
   const [page, setPage] = useState("Account");
@@ -23,9 +22,21 @@ export default function Home() {
     }
   };
 
+  const prevoiusPage = () => {
+    if (page === "Account") {
+      setPage("Preferences");
+    } else if (page === "Address") {
+      setPage("Account");
+    } else {
+      setPage("Address");
+    }
+  }
+
+
+
   const pages: Record<string, ReactElement> = {
     Account: <Account onNext={nextPage} />,
-    Address: <Address onNext={nextPage} />,
+    Address: <Address onNext={nextPage} onPrevious={prevoiusPage} />,
     Preferences: <Preferences onNext={nextPage} />,
   }
 

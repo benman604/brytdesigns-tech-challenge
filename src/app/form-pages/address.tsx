@@ -5,97 +5,121 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
 import { useState } from "react";
 
-export default function Address({ onNext }: { onNext: (formData: Record<string, string>) => void }) {
+interface AddressProps {
+    onNext: (formData: Record<string, string>) => void;
+    onPrevious: () => void;
+}
+
+export default function Address({ onNext, onPrevious }: AddressProps) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+        address: '',
+        apptSuite: '',
+        country: '',
+        city: '',
+        zip: '',
+        company: '',
+        phone: ''
     });
+
+    const requiredFields = ['address', 'country', 'city', 'zip']
+    const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
 
     const handleSubmit = () => {
         onNext(formData)
     }
-    
+
     return (
         <>
             <div className="flex justify-between">
                 <div className="w-1/2">
                 <InputField 
-                    label="First Name" 
-                    icon={
-                        <FontAwesomeIcon icon={faFontAwesome} />
-                    } 
-                    placeholder="John" 
-                    value={formData.firstName}
-                    onChange={(value) => {setFormData({...formData, firstName: value})}}
-                />
-                </div>
-                <div className="w-1/2">
-                    <InputField 
-                        label="Last Name" 
-                        icon={
-                            <FontAwesomeIcon icon={faFontAwesome} />
-                        } 
-                        placeholder="John" 
-                        value={formData.lastName}
-                        onChange={(value) => {setFormData({...formData, lastName: value})}}
-                    />
-                </div>
-            </div>
-
-            <InputField 
-                label="Username" 
-                icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
-                } 
-                placeholder="Placeholder" 
-                value={formData.username}
-                onChange={(value) => {setFormData({...formData, username: value})}}
-            />
-
-            <InputField 
-                label="Email address" 
-                icon={
-                    <FontAwesomeIcon icon={faFontAwesome} />
-                } 
-                placeholder="Placeholder" 
-                value={formData.email}
-                onChange={(value) => {setFormData({...formData, email: value})}}
-            />
-
-            <div className="flex justify-between">
-                <div className="w-1/2">
-                <InputField 
-                    label="Password" 
+                    label="Address *" 
                     icon={
                         <FontAwesomeIcon icon={faFontAwesome} />
                     } 
                     placeholder="Placeholder" 
-                    value={formData.password}
-                    onChange={(value) => {setFormData({...formData, password: value})}}
+                    value={formData.address}
+                    onChange={(value) => {setFormData({...formData, address: value})}}
                 />
                 </div>
                 <div className="w-1/2">
                     <InputField 
-                        label="Confirm password" 
+                        label="Apartment, Suite, etc." 
                         icon={
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
-                        placeholder="Password" 
-                        value={formData.confirmPassword}
-                        onChange={(value) => {setFormData({...formData, confirmPassword: value})}}
+                        placeholder="Placeholder" 
+                        value={formData.apptSuite}
+                        onChange={(value) => {setFormData({...formData, apptSuite: value})}}
                     />
                 </div>
             </div>
 
+
+            <div className="flex justify-between">
+                <div className="w-1/3">
+                <InputField 
+                    label="Country *" 
+                    icon={
+                        <FontAwesomeIcon icon={faFontAwesome} />
+                    } 
+                    placeholder="Placeholder" 
+                    value={formData.country}
+                    onChange={(value) => {setFormData({...formData, country: value})}}
+                />
+                </div>
+                <div className="w-1/3">
+                    <InputField 
+                        label="City *" 
+                        icon={
+                            <FontAwesomeIcon icon={faFontAwesome} />
+                        } 
+                        placeholder="Placeholder" 
+                        value={formData.city}
+                        onChange={(value) => {setFormData({...formData, city: value})}}
+                    />
+                </div>
+                <div className="w-1/3">
+                    <InputField 
+                        label="Zipcode *" 
+                        icon={
+                            <FontAwesomeIcon icon={faFontAwesome} />
+                        } 
+                        placeholder="Placeholder" 
+                        value={formData.zip}
+                        onChange={(value) => {setFormData({...formData, zip: value})}}
+                    />
+                </div>
+            </div>
+
+            <InputField 
+                label="Company" 
+                icon={
+                    <FontAwesomeIcon icon={faFontAwesome} />
+                } 
+                placeholder="Placeholder" 
+                value={formData.company}
+                onChange={(value) => {setFormData({...formData, company: value})}}
+            />
+
+            <InputField 
+                label="Phone Number" 
+                icon={
+                    <FontAwesomeIcon icon={faFontAwesome} />
+                } 
+                placeholder="Placeholder" 
+                value={formData.phone}
+                onChange={(value) => {setFormData({...formData, phone: value})}}
+            />
+
             <div className="flex justify-between mt-5">
-                <p></p>
+                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={onPrevious}>
+                    <FontAwesomeIcon className="mr-3" icon={faFontAwesome} />
+                    Previous
+                </button>
                 <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
-                  Next
-                  <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
+                    Next
+                    <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
                 </button>
             </div>
         </>
