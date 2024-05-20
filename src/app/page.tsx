@@ -23,8 +23,6 @@ export default function Home() {
       setPage("Address");
     } else if (page === "Address") {
       setPage("Preferences");
-    } else {
-      setPage("Account");
     }
   };
 
@@ -39,8 +37,8 @@ export default function Home() {
 
   const pages: Record<string, ReactElement> = {
     Account: <Account onNext={nextPage} savedData={savedData.current.Account} />,
-    Address: <Address onNext={nextPage} onPrevious={prevoiusPage} />,
-    Preferences: <Preferences onNext={nextPage} />,
+    Address: <Address onNext={nextPage} onPrevious={prevoiusPage} savedData={savedData.current.Address} />,
+    Preferences: <Preferences onNext={nextPage} onPrevious={prevoiusPage} savedData={savedData.current.Preferences} />,
   }
 
   return (

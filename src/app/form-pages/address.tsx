@@ -3,14 +3,16 @@
 import { faFontAwesome, faLeftLong, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
-import { useState } from "react";
+import SelectInput from "../components/selectinput";
+import { useState, useEffect } from "react";
 
 interface AddressProps {
     onNext: (formData: Record<string, string>) => void;
     onPrevious: (formData: Record<string, string>) => void;
+    savedData: Record<string, string>;
 }
 
-export default function Address({ onNext, onPrevious }: AddressProps) {
+export default function Address({ onNext, onPrevious, savedData={} }: AddressProps) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
         address: '',
         apptSuite: '',
@@ -23,6 +25,12 @@ export default function Address({ onNext, onPrevious }: AddressProps) {
 
     const requiredFields = ['address', 'country', 'city', 'zip']
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
+
+    useEffect(() => {
+        if (savedData && Object.keys(savedData).length > 0) {
+            setFormData(savedData)
+        }
+    }, [])
 
     const handleSubmit = () => {
         onNext(formData)
@@ -62,15 +70,15 @@ export default function Address({ onNext, onPrevious }: AddressProps) {
 
             <div className="flex justify-between">
                 <div className="w-1/3">
-                <InputField 
-                    label="Country *" 
-                    icon={
-                        <FontAwesomeIcon icon={faFontAwesome} />
-                    } 
-                    placeholder="Placeholder" 
-                    value={formData.country}
-                    onChange={(value) => {setFormData({...formData, country: value})}}
-                />
+                    <SelectInput 
+                        label="Country *" 
+                        icon={
+                            <FontAwesomeIcon icon={faFontAwesome} />
+                        } 
+                        options={['USA', 'Canada', 'Mexico']} 
+                        value={formData.country}
+                        onChange={(value) => {setFormData({...formData, country: value})}}
+                    />
                 </div>
                 <div className="w-1/3">
                     <InputField 
@@ -121,7 +129,11 @@ export default function Address({ onNext, onPrevious }: AddressProps) {
                     <FontAwesomeIcon className="mr-3" icon={faLeftLong} />
                     Previous
                 </button>
-                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
+                <button 
+                    className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" 
+                    onClick={handleSubmit}
+                    disabled={!isAllFieldsFilled}
+                >
                     Next
                     <FontAwesomeIcon className="ml-3" icon={faRightLong} />
                 </button>
