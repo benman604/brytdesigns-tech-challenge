@@ -38,6 +38,7 @@ export default function Home() {
     }
   }
 
+  const [result, setResult] = useState('');
   const register = async () => {
     let submissionData = {
       ...savedData.current.Account,
@@ -62,8 +63,10 @@ export default function Home() {
       })
       const data = await response.json();
       console.log(data);
+      setPage('Success')
     } catch (error) {
       console.error(error);
+      setPage('Error')
     }
   }
 
@@ -71,6 +74,8 @@ export default function Home() {
     Account: <Account onNext={nextPage} savedData={savedData.current.Account} />,
     Address: <Address onNext={nextPage} onPrevious={prevoiusPage} savedData={savedData.current.Address} />,
     Preferences: <Preferences onNext={nextPage} onPrevious={prevoiusPage} savedData={savedData.current.Preferences} />,
+    Success: <div>Data submitted.</div>,
+    Error: <div>Something went wrong, try again later.</div>
   }
 
   return (
@@ -79,6 +84,24 @@ export default function Home() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-6">{page}</h1>
           <div className="w-100 p-6 bg-white shadow-md rounded-lg">
+            {/* section split evenly into 3 */}
+            <div className={`flex justify-between mb-10 ${(page == 'Success' || page == 'Error') ? 'hidden' : ''}`}>
+              <div className="w-1/3 flex items-center justify-center">
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl ${page === 'Account' ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  1
+                </div>
+              </div>
+              <div className="w-1/3 flex items-center justify-center">
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl ${page === 'Address' ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  2
+                </div>
+              </div>
+              <div className="w-1/3 flex items-center justify-center">
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full font-bold text-xl ${page === 'Preferences' ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  3
+                </div>
+              </div>  
+            </div>
             {pages[page]}
           </div>
         </div>
