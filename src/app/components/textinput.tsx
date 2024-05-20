@@ -1,6 +1,15 @@
 "use client";
 
-export default function InputField({icon, label, placeholder, value, onChange}: {icon: JSX.Element, label: string, placeholder: string, value: string, onChange: (e: any) => void}) {
+interface InputFieldProps {
+    icon: JSX.Element;
+    label: string;
+    type?: string;
+    placeholder: string;
+    value: string;
+    onChange: (e: any) => void;
+}
+
+export default function InputField({icon, label, type='text', placeholder, value, onChange}: InputFieldProps) {
     const handleChange = (e: any) => {
         onChange(e.target.value);
     }
@@ -14,7 +23,7 @@ export default function InputField({icon, label, placeholder, value, onChange}: 
                 </span>
                 <input 
                     id={label}
-                    type="text" 
+                    type={type} 
                     className="pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm" 
                     placeholder={placeholder} 
                     value={value}

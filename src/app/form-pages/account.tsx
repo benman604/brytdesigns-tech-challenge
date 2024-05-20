@@ -48,7 +48,7 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
             </div>
 
             <InputField 
-                label="Username" 
+                label="Username *" 
                 icon={
                     <FontAwesomeIcon icon={faFontAwesome} />
                 } 
@@ -58,7 +58,7 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
             />
 
             <InputField 
-                label="Email address" 
+                label="Email address *" 
                 icon={
                     <FontAwesomeIcon icon={faFontAwesome} />
                 } 
@@ -70,10 +70,11 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
             <div className="flex justify-between">
                 <div className="w-1/2">
                 <InputField 
-                    label="Password" 
+                    label="Password *" 
                     icon={
                         <FontAwesomeIcon icon={faFontAwesome} />
                     } 
+                    type="password"
                     placeholder="Placeholder" 
                     value={formData.password}
                     onChange={(value) => {setFormData({...formData, password: value})}}
@@ -85,6 +86,7 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
                         icon={
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
+                        type="password"
                         placeholder="Password" 
                         value={formData.confirmPassword}
                         onChange={(value) => {setFormData({...formData, confirmPassword: value})}}
