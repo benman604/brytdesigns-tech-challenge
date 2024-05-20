@@ -23,6 +23,9 @@ export default function Home() {
       setPage("Address");
     } else if (page === "Address") {
       setPage("Preferences");
+    } else {
+      console.log("Data submitted", savedData.current);
+      register();
     }
   };
 
@@ -32,6 +35,35 @@ export default function Home() {
       setPage("Account");
     } else {
       setPage("Address");
+    }
+  }
+
+  const register = async () => {
+    let submissionData = {
+      ...savedData.current.Account,
+      ...savedData.current.Address,
+      ...savedData.current.Preferences
+    }
+
+    // clean data before submission - remove empty fields
+    Object.keys(submissionData).forEach(key => {
+      if (submissionData[key] === '') {
+        delete submissionData[key];
+      }
+    });
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(submissionData)
+      })
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
   }
 

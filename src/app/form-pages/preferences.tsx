@@ -1,6 +1,6 @@
 "use client";
 
-import { faFontAwesome, faLeftLong, faRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faLongArrowAltLeft, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
 import SelectInput from "../components/selectinput";
@@ -14,17 +14,17 @@ interface PreferencesProps {
 
 export default function Preferences({ onNext, onPrevious, savedData={} }: PreferencesProps) {
     const [formData, setFormData] = useState<{ [key: string]: any }>({
-        sendNotif: true,
-        shareInfo: true,
-        notifPref: '',
+        wantsNotifications: 'Yes',
+        shareInformation: 'Yes',
+        notificationPreferences: 'Email',
     });
 
     const onNotifCheckboxChange = (e: any) => {
-        setFormData({...formData, sendNotif: e.target.checked})
+        setFormData({...formData, wantsNotifications: (e.target.checked) ? 'Yes' : 'No' })
     }
 
     const onShareCheckboxChange = (e: any) => {
-        setFormData({...formData, shareInfo: e.target.checked})
+        setFormData({...formData, shareInformation: (e.target.checked) ? 'Yes' : 'No' })
     }
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export default function Preferences({ onNext, onPrevious, savedData={} }: Prefer
                 <input
                     type="checkbox"
                     className="form-checkbox h-5 w-5 text-blue-600"
-                    checked={formData.sendNotif}
+                    checked={(formData.wantsNotifications === 'Yes')}
                     onChange={onNotifCheckboxChange}
                 />
                 <span className="ml-2 text-gray-700">Send Notifications</span>
@@ -57,8 +57,8 @@ export default function Preferences({ onNext, onPrevious, savedData={} }: Prefer
                 <input
                     type="checkbox"
                     className="form-checkbox h-5 w-5 text-blue-600"
-                    checked={formData.sendNotif}
-                    onChange={onNotifCheckboxChange}
+                    checked={(formData.shareInformation === 'Yes')}
+                    onChange={onShareCheckboxChange}
                 />
                 <span className="ml-2 text-gray-700">Share information with related marketer</span>
             </label> <br />
@@ -69,13 +69,13 @@ export default function Preferences({ onNext, onPrevious, savedData={} }: Prefer
                     <FontAwesomeIcon icon={faFontAwesome} />
                 } 
                 options={['Email', 'Text']} 
-                value={formData.country}
-                onChange={(value) => {setFormData({...formData, country: value})}}
+                value={formData.notificationPreferences}
+                onChange={(value) => {setFormData({...formData, notificationPreferences: value})}}
             />
 
             <div className="flex justify-between mt-5">
-                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handlePrevious}>
-                    <FontAwesomeIcon className="mr-3" icon={faLeftLong} />
+                <button className="p-3 border border-blue-500 text-blue-500 rounded hover:bg-blue-50" onClick={handlePrevious}>
+                    <FontAwesomeIcon className="mr-3" icon={faLongArrowAltLeft} />
                     Previous
                 </button>
                 <button 
@@ -83,6 +83,7 @@ export default function Preferences({ onNext, onPrevious, savedData={} }: Prefer
                     onClick={handleSubmit}
                 >
                     Register
+                    <FontAwesomeIcon className="ml-3" icon={faCheckCircle} />
                 </button>
             </div>
         </>

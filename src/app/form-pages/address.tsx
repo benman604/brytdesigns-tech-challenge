@@ -1,6 +1,6 @@
 "use client";
 
-import { faFontAwesome, faLeftLong, faRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faLongArrowAltLeft, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
 import SelectInput from "../components/selectinput";
@@ -14,16 +14,16 @@ interface AddressProps {
 
 export default function Address({ onNext, onPrevious, savedData={} }: AddressProps) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
-        address: '',
-        apptSuite: '',
-        country: '',
+        address1: '',
+        address2: '',
+        country: 'US',
         city: '',
-        zip: '',
+        zipCode: '',
         company: '',
-        phone: ''
+        phoneNumber: ''
     });
 
-    const requiredFields = ['address', 'country', 'city', 'zip']
+    const requiredFields = ['address1', 'country', 'city', 'zipCode']
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
 
     useEffect(() => {
@@ -50,8 +50,8 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                         <FontAwesomeIcon icon={faFontAwesome} />
                     } 
                     placeholder="Placeholder" 
-                    value={formData.address}
-                    onChange={(value) => {setFormData({...formData, address: value})}}
+                    value={formData.address1}
+                    onChange={(value) => {setFormData({...formData, address1: value})}}
                 />
                 </div>
                 <div className="w-1/2">
@@ -61,8 +61,8 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
                         placeholder="Placeholder" 
-                        value={formData.apptSuite}
-                        onChange={(value) => {setFormData({...formData, apptSuite: value})}}
+                        value={formData.address2}
+                        onChange={(value) => {setFormData({...formData, address2: value})}}
                     />
                 </div>
             </div>
@@ -75,7 +75,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                         icon={
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
-                        options={['USA', 'Canada', 'Mexico']} 
+                        options={['US', 'Canada', 'Mexico']} 
                         value={formData.country}
                         onChange={(value) => {setFormData({...formData, country: value})}}
                     />
@@ -98,8 +98,8 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                             <FontAwesomeIcon icon={faFontAwesome} />
                         } 
                         placeholder="Placeholder" 
-                        value={formData.zip}
-                        onChange={(value) => {setFormData({...formData, zip: value})}}
+                        value={formData.zipCode}
+                        onChange={(value) => {setFormData({...formData, zipCode: value})}}
                     />
                 </div>
             </div>
@@ -120,17 +120,17 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
                     <FontAwesomeIcon icon={faFontAwesome} />
                 } 
                 placeholder="Placeholder" 
-                value={formData.phone}
-                onChange={(value) => {setFormData({...formData, phone: value})}}
+                value={formData.phoneNumber}
+                onChange={(value) => {setFormData({...formData, phoneNumber: value})}}
             />
 
             <div className="flex justify-between mt-5">
-                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handlePrevious}>
-                    <FontAwesomeIcon className="mr-3" icon={faLeftLong} />
+                <button className="p-3 border border-blue-500 text-blue-500 rounded hover:bg-blue-50" onClick={handlePrevious}>
+                    <FontAwesomeIcon className="mr-3" icon={faLongArrowAltLeft} />
                     Previous
                 </button>
                 <button 
-                    className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" 
+                    className="p-3 bg-blue-500 disabled:bg-slate-400 text-white rounded hover:bg-blue-600" 
                     onClick={handleSubmit}
                     disabled={!isAllFieldsFilled}
                 >

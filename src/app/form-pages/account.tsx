@@ -31,12 +31,6 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
 
     const handleSubmit = () => {
-        for (let field of requiredFields) {
-            if (!formData[field]) {
-                alert(`${field} is required`)
-                return
-            }
-        }
         onNext(formData)
     }
 
@@ -117,7 +111,7 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
             <div className="flex justify-between mt-5">
                 <p></p>
                 <button 
-                    className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" 
+                    className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-slate-400" 
                     onClick={handleSubmit}
                     disabled={!isAllFieldsFilled}
                 >
