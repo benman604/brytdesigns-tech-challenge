@@ -23,7 +23,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
         phoneNumber: ''
     });
 
-    const requiredFields = ['address1', 'country', 'city', 'zipCode']
+    const requiredFields = ['address1', 'country', 'city', 'zipCode', 'phoneNumber']
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
 
     useEffect(() => {
@@ -33,6 +33,17 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
     }, [])
 
     const handleSubmit = () => {
+        if (!isAllFieldsFilled) {
+            return
+        }
+        if (/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]{8,14}$/.test(formData.phoneNumber) === false) {
+            alert('Please enter a valid phone number')
+            return
+        }
+        if (/^\d{5}$|^\d{5}-\d{4}$/.test(formData.zipCode) === false) {
+            alert('Please enter a valid zip code')
+            return
+        }
         onNext(formData)
     }
 
@@ -115,7 +126,7 @@ export default function Address({ onNext, onPrevious, savedData={} }: AddressPro
             />
 
             <InputField 
-                label="Phone Number" 
+                label="Phone Number *" 
                 icon={
                     <FontAwesomeIcon icon={faFontAwesome} />
                 } 

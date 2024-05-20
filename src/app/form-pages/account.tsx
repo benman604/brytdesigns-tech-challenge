@@ -31,6 +31,25 @@ export default function Account({ onNext, savedData={} }: AccountProps) {
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
 
     const handleSubmit = () => {
+        if (!isAllFieldsFilled) {
+            return
+        }
+        if (formData.password !== formData.confirmPassword) {
+            alert('Your passwords do not match. Please try again.')
+            return
+        }
+        if (/^[\w&.\-]*$/.test(formData.password) === false) {
+            alert('Password must contain only letters, numbers, and special characters (&, ., -)')
+            return
+        }
+        if (formData.password.length < 10) {
+            alert('Password must be at least 10 characters long')
+            return
+        }
+        if (/^[A-Za-z0-9]+@[a-z0-9]+.[a-z]+/.test(formData.email) === false) {
+            alert('Please enter a valid email address')
+            return
+        }
         onNext(formData)
     }
 
