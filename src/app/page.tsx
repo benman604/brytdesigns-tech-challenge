@@ -2,7 +2,7 @@
 
 import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useRef } from "react";
 
 import Account from "./form-pages/account";
 import Address from "./form-pages/address";
@@ -11,8 +11,14 @@ import Preferences from "./form-pages/preferences";
 export default function Home() {
   const [page, setPage] = useState("Account");
 
+  const savedData = useRef<Record<string, Record<string, string>>>({
+    Account: {},
+    Address: {},
+    Preferences: {}
+  });
+
   const nextPage = (data: Record<string, string>) => {
-    console.log(data);
+    savedData.current[page] = data;
     if (page === "Account") {
       setPage("Address");
     } else if (page === "Address") {
@@ -22,20 +28,17 @@ export default function Home() {
     }
   };
 
-  const prevoiusPage = () => {
-    if (page === "Account") {
-      setPage("Preferences");
-    } else if (page === "Address") {
+  const prevoiusPage = (data: Record<string, string>) => {
+    savedData.current[page] = data;
+    if (page === "Address") {
       setPage("Account");
     } else {
       setPage("Address");
     }
   }
 
-
-
   const pages: Record<string, ReactElement> = {
-    Account: <Account onNext={nextPage} />,
+    Account: <Account onNext={nextPage} savedData={savedData.current.Account} />,
     Address: <Address onNext={nextPage} onPrevious={prevoiusPage} />,
     Preferences: <Preferences onNext={nextPage} />,
   }

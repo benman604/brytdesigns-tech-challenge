@@ -1,13 +1,13 @@
 "use client";
 
-import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faLeftLong, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InputField from "../components/textinput";
 import { useState } from "react";
 
 interface AddressProps {
     onNext: (formData: Record<string, string>) => void;
-    onPrevious: () => void;
+    onPrevious: (formData: Record<string, string>) => void;
 }
 
 export default function Address({ onNext, onPrevious }: AddressProps) {
@@ -26,6 +26,10 @@ export default function Address({ onNext, onPrevious }: AddressProps) {
 
     const handleSubmit = () => {
         onNext(formData)
+    }
+
+    const handlePrevious = () => {
+        onPrevious(formData)
     }
 
     return (
@@ -113,13 +117,13 @@ export default function Address({ onNext, onPrevious }: AddressProps) {
             />
 
             <div className="flex justify-between mt-5">
-                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={onPrevious}>
-                    <FontAwesomeIcon className="mr-3" icon={faFontAwesome} />
+                <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handlePrevious}>
+                    <FontAwesomeIcon className="mr-3" icon={faLeftLong} />
                     Previous
                 </button>
                 <button className="p-3 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleSubmit}>
                     Next
-                    <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
+                    <FontAwesomeIcon className="ml-3" icon={faRightLong} />
                 </button>
             </div>
         </>

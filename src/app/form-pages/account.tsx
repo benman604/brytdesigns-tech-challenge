@@ -1,20 +1,31 @@
 "use client";
 
-import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import InputField from "../components/textinput";
 
-export default function Account({ onNext }: { onNext: (formData: Record<string, string>) => void }) {
+interface AccountProps {
+    onNext: (formData: Record<string, string>) => void;
+    savedData: Record<string, string>;
+}
+
+export default function Account({ onNext, savedData={} }: AccountProps) {
     const [formData, setFormData] = useState<{ [key: string]: string }>({
-        firstName: 'This is a saved name',
+        firstName: '',
         lastName: '',
         username: '',
         email: '',
         password: '',
         confirmPassword: ''
     });
+
+    useEffect(() => {
+        if (savedData && Object.keys(savedData).length > 0) {
+            setFormData(savedData)
+        }
+    }, [])
 
     const requiredFields = ['username', 'email', 'password', 'confirmPassword']
     const isAllFieldsFilled = requiredFields.every(field => formData[field] && formData[field] !== '')
@@ -111,7 +122,7 @@ export default function Account({ onNext }: { onNext: (formData: Record<string, 
                     disabled={!isAllFieldsFilled}
                 >
                     Next
-                    <FontAwesomeIcon className="ml-3" icon={faFontAwesome} />
+                    <FontAwesomeIcon className="ml-3" icon={faRightLong} />
                 </button>
             </div>
         </>
